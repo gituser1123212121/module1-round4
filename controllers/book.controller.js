@@ -1,6 +1,5 @@
 const Book = require("../models/").book;
 const jwt = require("jsonwebtoken");
-const assert = require("assert");
 
 const { PAGINATION_FETCH_LIMIT } = require("../config/server.config");
 
@@ -10,14 +9,12 @@ const getBooks = (req, res, next) => {
   const pageNumber = parseInt(req.query.page);
   Book.findAll()
     .then((booksFound) => {
-      // let paginatedBooksFound = [];
-      // let initial = (pageNumber - 1) * PAGINATION_FETCH_LIMIT;
-      // assert(initial < booksFound.length);
-      // for (let i = initial; i < booksFound.length; i++) {
-      //   paginatedBooksFound.push(booksFound[i]);
-      // }
-      // TODO: implement assertion logic
-      res.status(200).json({ books: booksFound });
+      let initial = (pageNumber - 1) * PAGINATION_FETCH_LIMIT;
+      let paginatedBooksFound = booksFound.slice(
+        initial,
+        initial + PAGINATION_FETCH_LIMIT
+      );
+      res.status(200).json({ books: paginatedBooksFound });
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });
