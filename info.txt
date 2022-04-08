@@ -1,0 +1,8 @@
+Add Pagination to GET /book/list api, the count should be configurable(should be added in config file)
+There should be strict checks on user roles -> Renter and Admin. Renter should not be able to perform any updated books i.e only admin should be able to add, delete, add update (rented, return) on books.
+GET /book/list ->  User, Admin
+POST /book/create -> Admin
+POST/book?delete=true   (should accept one of the 3 query params -> delete, rent, return) ->  Admin
+GET /rented/{userId} -> User, Admin
+
+
